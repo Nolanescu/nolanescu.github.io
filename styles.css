@@ -12,9 +12,9 @@ body {
     min-height: 100vh; /* forteaza sa fie cat ecranul tot body indiferent de cat continut ca sa se alinieze corect fundalul */
     background-size:cover;
     color: rgb(200, 200, 200);
-    margin-top: 80px;
-    padding: 0px 80px;
-    overflow: hidden;
+    margin-top: 40px;
+    padding: 0px 40px;
+
 }
 
 #header {
@@ -61,4 +61,10 @@ b {
 
 .item p {
     margin-top: 8px;
+    line-height: 1.5em;
+}
+
+.item:hover
+{
+    background: #00000088;
 }
