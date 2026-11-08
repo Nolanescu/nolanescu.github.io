@@ -1,0 +1,64 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("pictures/nolanbg.jpg");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* forteaza sa fie cat ecranul tot body indiferent de cat continut ca sa se alinieze corect fundalul */
+    background-size:cover;
+    color: rgb(200, 200, 200);
+    margin-top: 80px;
+    padding: 0px 80px;
+    overflow: hidden;
+}
+
+#header {
+    width: 540px;
+}
+h1 {
+    font-size: 80px;
+}
+
+b {
+    color: orange;
+}
+
+.highlight {
+    background-color: #6666ff66;
+    padding: 8px 16px;
+
+    border: 2px solid #6666ff;
+    border-radius: 20px; 
+}
+
+#header p {
+    padding: 16px;
+}
+
+#passions {
+    padding: 16px;
+}
+
+.row {
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
+}
+
+.item {
+    width: 180px;
+    border-radius: 8px;
+    background-color: #88888822;
+    border: 2px solid #9999BB;
+    padding: 16px;
+    backdrop-filter: blur(10px);
+}
+
+.item p {
+    margin-top: 8px;
+}
