@@ -1,5 +1,6 @@
 [
   { "id": "blank", "title": "Blank Canvas" },
+  { "id": "lectie-navbar", "title": "Lectie: Navbar" },
   { "id": "welcome", "title": "Example: Welcome Card" },
   { "id": "flexbox", "title": "Example: Flexbox Navbar & Cards" },
   { "id": "animations", "title": "Example: Fun Buttons & Hover" },

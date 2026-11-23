@@ -1,0 +1,44 @@
+.NavBar * {
+margin: 0;
+padding: 0;
+
+}
+
+
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+.NavBar {
+  border: 2px solid #FFBB98;
+  background-color: #FBE0C3;
+  border-radius: 16px;
+  color: #344648;
+  padding: 16px;
+}
+
+.links {
+  list-style-type: none;
+
+}
+
+.links a {
+  text-decoration: none;
+  color: #344648;
+  display: block;
+  padding: 5px;
+  border: 1px solid #344648;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.links a:hover{
+  color: #FBE0C3;
+  background-color: #344648 ;
+}
