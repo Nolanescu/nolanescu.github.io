@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML &amp; CSS Playground | nolan.escu.party</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><polygon points='20,36 4,8 36,8' fill='%2300ff85'/></svg>" />
+
+  <!-- CodeMirror 5 for syntax highlighting & auto-close tags/brackets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/theme/material-darker.min.css" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="/" class="brand" title="Back to nolan.escu.party">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span class="brand-name">HTML &amp; CSS Playground</span>
+      </a>
+    </div>
+
+    <div class="topbar-actions">
+      <label class="example-picker">
+        <span class="sr-only">Choose starter example</span>
+        <select id="example-select" aria-label="Starter examples">
+          <option value="blank" selected>Blank Canvas</option>
+        </select>
+      </label>
+
+      <button id="reset-btn" class="btn btn-ghost" type="button" title="Reset current example">
+        Reset
+      </button>
+      <button id="download-btn" class="btn btn-primary" type="button" title="Download as a single .html file">
+        Download .html
+      </button>
+    </div>
+  </header>
+
+  <!-- Tab bar: on desktop switches HTML/CSS; on mobile also includes Preview -->
+  <div class="mobile-bar" role="tablist" aria-label="Workspace views">
+    <button class="tab-btn active" data-tab="html" role="tab" aria-selected="true" type="button">
+      <span class="tab-badge html-badge">HTML</span>
+      index.html
+    </button>
+    <button class="tab-btn" data-tab="css" role="tab" aria-selected="false" type="button">
+      <span class="tab-badge css-badge">CSS</span>
+      styles.css
+    </button>
+    <button class="tab-btn mobile-only" data-tab="preview" role="tab" aria-selected="false" type="button">
+      <span class="tab-badge preview-badge">LIVE</span>
+      Preview
+    </button>
+  </div>
+
+  <main class="workspace" id="workspace">
+    <!-- Left pane: Editor -->
+    <section class="pane editor-pane active-mobile" id="editor-pane" aria-label="Code editor">
+      <div class="desktop-tabs" role="tablist" aria-label="Code files">
+        <button class="tab-btn active" data-tab="html" role="tab" aria-selected="true" type="button">
+          <span class="tab-badge html-badge">HTML</span>
+          index.html
+        </button>
+        <button class="tab-btn" data-tab="css" role="tab" aria-selected="false" type="button">
+          <span class="tab-badge css-badge">CSS</span>
+          styles.css
+        </button>
+        <span class="editor-status" id="editor-status">Auto-saved</span>
+      </div>
+
+      <div class="editor-panels">
+        <div class="editor-panel active" id="panel-html">
+          <div class="html-context-bar" title="The head and styles.css link are already included automatically">
+            <pre class="html-context-code">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;</pre>
+          </div>
+          <div class="editor-body">
+            <textarea id="html-input" spellcheck="false" aria-label="HTML body code editor"></textarea>
+          </div>
+          <div class="html-context-bar html-context-footer">
+            <pre class="html-context-code">  &lt;/body&gt;
+&lt;/html&gt;</pre>
+          </div>
+        </div>
+        <div class="editor-panel" id="panel-css">
+          <div class="editor-body">
+            <textarea id="css-input" spellcheck="false" aria-label="CSS code editor"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Draggable splitter (desktop only) -->
+    <div class="resizer" id="resizer" role="separator" aria-orientation="vertical" aria-label="Resize editor and preview" tabindex="0"></div>
+
+    <!-- Right pane: Live Preview -->
+    <section class="pane preview-pane" id="preview-pane" aria-label="Live preview">
+      <div class="preview-header">
+        <div class="preview-title">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Live Preview</span>
+        </div>
+        <div class="preview-controls">
+          <button class="size-btn active" data-width="100%" type="button" title="Full width preview">Full</button>
+          <button class="size-btn" data-width="390px" type="button" title="Phone width preview (390px)">Phone</button>
+        </div>
+      </div>
+      <div class="preview-stage" id="preview-stage">
+        <iframe
+          id="preview-frame"
+          title="Live HTML and CSS output"
+          sandbox=""
+        ></iframe>
+      </div>
+    </section>
+  </main>
+
+  <!-- CodeMirror 5 scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/closetag.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.18/addon/selection/active-line.min.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+[
+  { "id": "blank", "title": "Blank Canvas" },
+  { "id": "welcome", "title": "Example: Welcome Card" },
+  { "id": "flexbox", "title": "Example: Flexbox Navbar & Cards" },
+  { "id": "animations", "title": "Example: Fun Buttons & Hover" },
+  { "id": "grid", "title": "Example: Photo Grid" }
+]

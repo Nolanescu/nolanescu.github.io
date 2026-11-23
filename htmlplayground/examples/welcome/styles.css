@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #f8fafc;
+}
+
+.card {
+  max-width: 380px;
+  padding: 28px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #38bdf8;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 14px 0 10px;
+  font-size: 28px;
+}
+
+p {
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+.cta {
+  margin-top: 14px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #00ff85;
+  color: #062819;
+  font-weight: 700;
+  cursor: pointer;
+}
