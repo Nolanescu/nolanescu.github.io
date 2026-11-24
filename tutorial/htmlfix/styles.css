@@ -171,6 +171,37 @@ kbd {
   font-size: 0.88rem;
 }
 
+.part-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.part-tag {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.part-desktop {
+  background: rgba(56, 189, 248, 0.16);
+  color: var(--blue);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+.part-mobile {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border: 1px solid rgba(0, 255, 133, 0.35);
+}
+
+.review-card h2,
 .bonus-card h2,
 .setup-card h2,
 .checklist-card h2 {
