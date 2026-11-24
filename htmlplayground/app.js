@@ -11,6 +11,7 @@
   const exampleSelect = document.getElementById("example-select");
   const resetBtn = document.getElementById("reset-btn");
   const downloadBtn = document.getElementById("download-btn");
+  const editorDownloadBtn = document.getElementById("editor-download-btn");
   const editorStatus = document.getElementById("editor-status");
 
   const editorPane = document.getElementById("editor-pane");
@@ -90,6 +91,32 @@ ${css}
 ${html}
 </body>
 </html>`;
+  }
+
+  function buildLinkedHtmlDocument(html) {
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+${html}
+</body>
+</html>`;
+  }
+
+  function downloadFile(filename, content, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   }
 
   function renderPreview() {
@@ -214,6 +241,14 @@ ${html}
       } else if (target === "css" && cssEditor) {
         requestAnimationFrame(() => cssEditor.refresh());
       }
+
+      if (editorDownloadBtn) {
+        const isCss = target === "css";
+        editorDownloadBtn.textContent = isCss ? "Download styles.css" : "Download index.html";
+        editorDownloadBtn.title = isCss
+          ? "Download styles.css"
+          : "Download index.html with styles.css link";
+      }
     }
 
     tabButtons.forEach((btn) => {
@@ -256,17 +291,19 @@ ${html}
 
   // Download single self-contained HTML file
   downloadBtn.addEventListener("click", () => {
-    const content = buildDocument(getHtml(), getCss());
-    const blob = new Blob([content], { type: "text/html;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "my-webpage.html";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    downloadFile("my-webpage.html", buildDocument(getHtml(), getCss()), "text/html;charset=utf-8");
   });
+
+  // Download active editor file (fully qualified index.html or styles.css)
+  if (editorDownloadBtn) {
+    editorDownloadBtn.addEventListener("click", () => {
+      if (activeCodeTab === "css") {
+        downloadFile("styles.css", getCss(), "text/css;charset=utf-8");
+      } else {
+        downloadFile("index.html", buildLinkedHtmlDocument(getHtml()), "text/html;charset=utf-8");
+      }
+    });
+  }
 
   // Desktop split resizer
   let isDragging = false;
