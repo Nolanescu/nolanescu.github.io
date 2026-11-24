@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mobile Fix Mission | Nolan's Playground</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <div class="badge">Mission: Fix Your Homepage for Phones</div>
+      <h1>Making Your Site Look Great on Mobile</h1>
+      <p class="lead">
+        Right now, your root homepage (<code>index.html</code> + <code>styles.css</code>) looks awesome on a big computer screen,
+        but gets squished and cut off on a phone. Instead of rewriting everything, we're going to keep your
+        <strong>Desktop version</strong> untouched and add a <strong>Mobile version</strong> right inside <code>styles.css</code>.
+      </p>
+      <div class="callout">
+        <strong>Rule of this mission:</strong> No giant copy-paste! Each step tells you <em>where</em> to look,
+        <em>what</em> CSS property to change, and <em>why</em> it works so you build it by hand.
+      </div>
+    </header>
+
+    <section class="card setup-card">
+      <h2>Before You Start: How to Test Like a Pro</h2>
+      <ol class="steps-list">
+        <li>Open your root <code>index.html</code> and <code>styles.css</code> in your code editor.</li>
+        <li>Open your site in Chrome or Edge and press <kbd>F12</kbd> (or right-click &rarr; <strong>Inspect</strong>).</li>
+        <li>Click the <strong>Phone / Tablet icon</strong> (Toggle Device Toolbar, or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>) and pick a phone width like <code>390px</code>.</li>
+        <li>Notice how you have to scroll sideways and the cards go off the screen. That's what we're fixing!</li>
+      </ol>
+    </section>
+
+    <section class="step">
+      <div class="step-header">
+        <span class="step-num">Step 1</span>
+        <h2>Fix the CSS Box Math (<code>box-sizing</code>)</h2>
+      </div>
+      <div class="why-box">
+        <p><strong>What's wrong:</strong> At the top of <code>styles.css</code>, your <code>*</code> rule resets <code>border</code>, <code>padding</code>, and <code>margin</code> to <code>0</code>, but leaves out <code>box-sizing</code>. By default, CSS adds padding and borders <em>on top of</em> an element's width. So a <code>180px</code> <code>.item</code> card with <code>16px</code> padding and a <code>2px</code> border actually becomes <code>216px</code> wide!</p>
+        <p><strong>Why our fix works:</strong> Setting <code>box-sizing</code> to <code>border-box</code> tells the browser: "Keep padding and borders <em>inside</em> the width I asked for." That way, later when we say <code>width: 100%</code> on mobile, it will fit 100% without poking out the sides.</p>
+      </div>
+      <div class="todo-box">
+        <strong>Your task in <code>styles.css</code>:</strong>
+        <ul>
+          <li>Find the <code>*</code> selector at the very top of the file.</li>
+          <li>Add the <code>box-sizing</code> property with the value <code>border-box</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step">
+      <div class="step-header">
+        <span class="step-num">Step 2</span>
+        <h2>Create Your Mobile Section (<code>@media</code> Query)</h2>
+      </div>
+      <div class="why-box">
+        <p><strong>What's wrong:</strong> Right now, every rule in <code>styles.css</code> applies to <em>all</em> screen sizes — huge monitors and tiny phones alike.</p>
+        <p><strong>Why our fix works:</strong> A <code>@media</code> query lets you create a second set of rules that <em>only</em> turns on when the screen is narrow (for example, <code>768px</code> or smaller). Everything above it stays your Desktop version, and everything inside it becomes your Mobile version.</p>
+      </div>
+      <div class="todo-box">
+        <strong>Your task in <code>styles.css</code>:</strong>
+        <ul>
+          <li>Scroll to the very bottom of <code>styles.css</code>.</li>
+          <li>Create an <code>@media</code> block for screens with <code>max-width: 768px</code>:</li>
+        </ul>
+        <pre class="mini-snippet"><code>@media (max-width: 768px) {
+  /* Your mobile rules from Steps 3–7 go inside here! */
+}</code></pre>
+      </div>
+    </section>
+
+    <section class="step">
+      <div class="step-header">
+        <span class="step-num">Step 3</span>
+        <h2>Fix <code>body</code> Spacing &amp; Extra Scroll</h2>
+      </div>
+      <div class="why-box">
+        <p><strong>What's wrong:</strong> On desktop, <code>body</code> has <code>margin-top: 40px</code> and <code>padding: 0px 40px</code>. On a 390px phone, 40px padding on both sides steals 80px of space! Also, <code>margin-top: 40px</code> combined with <code>min-height: 100vh</code> makes the page <code>100vh + 40px</code> tall, creating a tiny unnecessary scrollbar.</p>
+        <p><strong>Why our fix works:</strong> Inside the mobile block, setting <code>margin-top</code> to <code>0</code> removes the extra height, and using smaller <code>padding</code> (like <code>24px</code> top/bottom and <code>16px</code> left/right) gives your text plenty of breathing room without wasting phone width.</p>
+      </div>
+      <div class="todo-box">
+        <strong>Your task inside <code>@media (max-width: 768px)</code>:</strong>
+        <ul>
+          <li>Add a <code>body</code> rule.</li>
+          <li>Set <code>margin-top</code> to <code>0</code>.</li>
+          <li>Set <code>padding</code> to <code>24px 16px</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step">
+      <div class="step-header">
+        <span class="step-num">Step 4</span>
+        <h2>Unlock the <code>#header</code> Width</h2>
+      </div>
+      <div class="why-box">
+        <p><strong>What's wrong:</strong> Your <code>#header</code> container has <code>width: 540px</code>. A phone screen is usually only <code>360px</code> to <code>430px</code> wide, so a <code>540px</code> box forces the whole page to overflow sideways.</p>
+        <p><strong>Why our fix works:</strong> Changing <code>width</code> to <code>100%</code> on mobile tells the header to match whatever phone screen is viewing it, instead of demanding 540 pixels.</p>
+      </div>
+      <div class="todo-box">
+        <strong>Your task inside <code>@media (max-width: 768px)</code>:</strong>
+        <ul>
+          <li>Add a <code>#header</code> rule.</li>
+          <li>Set its <code>width</code> property to <code>100%</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step">
+      <div class="step-header">
+        <span class="step-num">Step 5</span>
+        <h2>Scale Down the Giant <code>h1</code> Title</h2>
+      </div>
+      <div class="why-box">
+        <p><strong>What's wrong:</strong> Your <code>h1</code> ("Hi, I'm Nolan.") has <code>font-size: 80px</code>. That looks bold and awesome on a desktop monitor, but on a phone it's way too big and takes up half the screen.</p>
+        <p><strong>Why our fix works:</strong> Dropping <code>font-size</code> to around <code>44px</code> on mobile keeps it big enough to feel like a main title, while fitting cleanly on 1 or 2 lines.</p>
+      </div>
+      <div class="todo-box">
+        <strong>Your task inside <code>@media (max-width: 768px)</code>:</strong>
+        <ul>
+          <li>Add an <code>h1</code> rule.</li>
+          <li>Set <code>font-size</code> to <code>44px</code> (or test between <code>40px</code> and <code>48px</code> to see what looks best!).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step">
+      <div class="step-header">
+        <span class="step-num">Step 6</span>
+        <h2>Stack the Passion Cards (<code>.row</code> &amp; <code>.item</code>)</h2>
+      </div>
+      <div class="why-box">
+        <p><strong>What's wrong:</strong> <code>.row</code> uses <code>display: flex</code>, which lines up Basketball, Chess, and Coding side-by-side in a horizontal row. Since each <code>.item</code> is <code>180px</code> wide, three cards side-by-side need ~680px and shoot right off the edge of a phone!</p>
+        <p><strong>Why our fix works:</strong> In Flexbox, changing <code>flex-direction</code> from its default (<code>row</code>) to <code>column</code> stacks the cards vertically one below another. Then setting <code>.item</code>'s <code>width</code> to <code>100%</code> makes each card stretch neatly across the phone screen.</p>
+      </div>
+      <div class="todo-box">
+        <strong>Your task inside <code>@media (max-width: 768px)</code>:</strong>
+        <ul>
+          <li>Add a <code>.row</code> rule and set <code>flex-direction</code> to <code>column</code>.</li>
+          <li>Add an <code>.item</code> rule and set <code>width</code> to <code>100%</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="step">
+      <div class="step-header">
+        <span class="step-num">Step 7</span>
+        <h2>Keep the Background &amp; Text Readable</h2>
+      </div>
+      <div class="why-box">
+        <p><strong>What's wrong:</strong> Your <code>body</code> uses <code>background-position: right bottom</code> and <code>background-size: cover</code>. On a tall portrait phone, that zooms tightly into the bottom-right corner of <code>nolanbg.jpg</code>. Also, light grey text (<code>rgb(200, 200, 200)</code>) can become hard to read if it lands over brighter parts of the photo.</p>
+        <p><strong>Why our fix works:</strong> Centering the background (<code>background-position: center</code>) frames the photo better on tall screens. And giving <code>.item</code> or <code>#header</code> a slightly darker translucent background (or brightening <code>body</code> text color to <code>#f0f4f8</code>) makes sure every word pops clearly.</p>
+      </div>
+      <div class="todo-box">
+        <strong>Your task inside <code>@media (max-width: 768px)</code>:</strong>
+        <ul>
+          <li>In your mobile <code>body</code> rule, set <code>background-position</code> to <code>center</code> and <code>color</code> to <code>#f0f4f8</code>.</li>
+          <li>In your mobile <code>.item</code> rule, try a slightly darker background like <code>rgba(15, 17, 23, 0.55)</code> so the card text is super easy to read.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card bonus-card">
+      <h2>Bonus Idea (HTML)</h2>
+      <p>
+        In <code>index.html</code> inside <code>&lt;div class="highlight"&gt;</code>, the words <code>HTML playground</code> are just plain text right now.
+        If you wrap them in an <code>&lt;a href="htmlplayground/"&gt;</code> tag, anyone visiting your homepage can click straight into your HTML &amp; CSS Playground!
+      </p>
+    </section>
+
+    <section class="card checklist-card">
+      <h2>Final Check</h2>
+      <p class="checklist-note">Tick each box after you test it in DevTools:</p>
+      <label class="check-item"><input type="checkbox" /> No horizontal scrollbar at <code>390px</code> width</label>
+      <label class="check-item"><input type="checkbox" /> <code>#header</code> and <code>h1</code> fit cleanly without cutting off</label>
+      <label class="check-item"><input type="checkbox" /> Basketball, Chess, and Coding cards stack vertically at full width</label>
+      <label class="check-item"><input type="checkbox" /> Text is easy to read against the background photo</label>
+      <label class="check-item"><input type="checkbox" /> Switch back to Desktop view (<code>1200px+</code>) and confirm the original layout still looks the same!</label>
+    </section>
+  </main>
+</body>
+</html>
