@@ -116,7 +116,14 @@ ${html}
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function downloadProjectFiles() {
+    downloadFile("index.html", buildLinkedHtmlDocument(getHtml()), "text/html;charset=utf-8");
+    setTimeout(() => {
+      downloadFile("styles.css", getCss(), "text/css;charset=utf-8");
+    }, 150);
   }
 
   function renderPreview() {
@@ -241,14 +248,6 @@ ${html}
       } else if (target === "css" && cssEditor) {
         requestAnimationFrame(() => cssEditor.refresh());
       }
-
-      if (editorDownloadBtn) {
-        const isCss = target === "css";
-        editorDownloadBtn.textContent = isCss ? "Download styles.css" : "Download index.html";
-        editorDownloadBtn.title = isCss
-          ? "Download styles.css"
-          : "Download index.html with styles.css link";
-      }
     }
 
     tabButtons.forEach((btn) => {
@@ -289,20 +288,11 @@ ${html}
     loadExample(exampleSelect.value);
   });
 
-  // Download single self-contained HTML file
-  downloadBtn.addEventListener("click", () => {
-    downloadFile("my-webpage.html", buildDocument(getHtml(), getCss()), "text/html;charset=utf-8");
-  });
+  // Download separate index.html (linked) and styles.css files
+  downloadBtn.addEventListener("click", downloadProjectFiles);
 
-  // Download active editor file (fully qualified index.html or styles.css)
   if (editorDownloadBtn) {
-    editorDownloadBtn.addEventListener("click", () => {
-      if (activeCodeTab === "css") {
-        downloadFile("styles.css", getCss(), "text/css;charset=utf-8");
-      } else {
-        downloadFile("index.html", buildLinkedHtmlDocument(getHtml()), "text/html;charset=utf-8");
-      }
-    });
+    editorDownloadBtn.addEventListener("click", downloadProjectFiles);
   }
 
   // Desktop split resizer
